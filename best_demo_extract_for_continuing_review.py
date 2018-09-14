@@ -9,11 +9,11 @@ from redcap import Project, RedcapError
 import pandas
 
 api_url_best = 'https://redcap.stanford.edu/api/'
-api_key_best = 'BE22B1E1DCECC4631C50A7EFC7911EE2'
+api_key_best = ''
 best_project = Project(api_url_best, api_key_best)
 
 api_url_screen =  'https://redcap.stanford.edu/api/'
-api_key_screen = '2E9C6FD50EF1A77CD4EFA06CDDD72FF2'
+api_key_screen = ''
 os=Project(api_url_screen, api_key_screen)
 
 

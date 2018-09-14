@@ -10,7 +10,7 @@ from itertools import groupby
 
 patient_buf = cStringIO.StringIO()
 patient_tracker_data = {
-    'token': 'BE22B1E1DCECC4631C50A7EFC7911EE2',
+    'token': '',
     'content': 'report',
     'format': 'csv',
     'report_id': '20886',

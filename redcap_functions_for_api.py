@@ -5,11 +5,11 @@ from redcap import Project, RedcapError
 
 
 apiurl='https://redcap.stanford.edu/api/'
-token= 'BE22B1E1DCECC4631C50A7EFC7911EE2'
+token= ''
 best_project = Project(apiurl, token)
 long_proj = Project(apiurl, token)
 ssl_proj = Project(apiurl, token, verify_ssl=True)
-survey_proj = Project(apiurl, '2E9C6FD50EF1A77CD4EFA06CDDD72FF2')
+survey_proj = Project(apiurl, '')
 
 def metadata_to_df(best_project):
     """Test metadata export --> DataFrame"""
@@ -24,7 +24,7 @@ def export_always_include_def_field(best_project):
     records = best_project.export_records(forms=['imaging'])
 
 
-   
+
 
 
 def is_longitudinal(best_project):
@@ -70,4 +70,3 @@ def is_good_csv(best_project, csv_string):
 def csv_export(best_project):
     """Test valid csv export """
     csv = best_project.export_records(format='csv')
-

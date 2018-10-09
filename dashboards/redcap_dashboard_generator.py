@@ -1,3 +1,5 @@
+# Redcap
+
 #!/usr/bin/env python
 import pycurl
 import cStringIO
@@ -39,6 +41,7 @@ data = {
     'exportCheckboxLabel': 'false',
     'returnFormat': 'csv'
 }
+
 ch = pycurl.Curl()
 ch.setopt(ch.URL, 'https://redcap.stanford.edu/api/')
 ch.setopt(ch.HTTPPOST, data.items())
@@ -79,7 +82,6 @@ current_date = str(time.strftime('%Y/%m/%d'))
 clinic_dict = {'1': 'Palo Alto', '2': 'San Jose VA', '3': 'Monterrey VA', '4': 'New Mexico VA', '5': 'Menlo Park',
                '6': 'Fresno', '7': 'Livermore'}
 
-
 patient_referrals = 0
 referall_date = 0
 ineligible_patients_recruitment = 0
@@ -90,9 +92,17 @@ pending_eligibility_locations = []
 total_eligible_referrals = 0
 freq_of_referrals = []
 
+pt_cpt_therapy = 0
+pt_therapy_still_unknown = 0
+pt_pe_therapy = 0
+
 scheduled_patient_tp1 = 0
 referred_patient_tp1 = 0
 completed_patient_tp1 = 0
+scheduled_patient_tp2 = 0
+referred_patient_tp2 = 0
+completed_patient_tp2 = 0
+
 total_subj_with_data_collected = 0
 pt_weekly_count = 0
 pt_upcoming_dates = []
@@ -121,12 +131,7 @@ for pt in patient_corrected_list:
         continue
     if '55' in pt[5]:
         clinic = pt[6]
-        try:
-            clinic_type = clinic_dict[clinic]
-        except:
-            subj = pt[0]
-            print "subject %s's clinic referral location field is empty, please fix this on redcap" % subj
-            continue
+        clinic_type = clinic_dict[clinic]
         pending_eligibility_locations.append(clinic_type)
         patients_pending_eligibility = patients_pending_eligibility + 1
     if '0' in pt[5]:
@@ -135,6 +140,12 @@ for pt in patient_corrected_list:
         total_eligible_referrals = total_eligible_referrals + 1
         clinics = clinic_dict[pt[6]]
         freq_of_referrals.append(clinics)
+    if '2' in pt[8]:
+        pt_cpt_therapy = pt_cpt_therapy + 1
+    if '100' in pt[8]:
+        pt_therapy_still_unknown = pt_therapy_still_unknown + 1
+    if '1' in pt[8]:
+        pt_pe_therapy = pt_pe_therapy + 1
 
 
 referrals_freqs = [(k, len(list(g)))
@@ -149,14 +160,19 @@ for subjects in corrected_list:
     if 'tp1_day1_arm_1' in subjects[1]:
         scheduled = []
         referred = []
-        completed = []
+        completed_tp1 = []
+        completed_tp2 = []
         total_run = []
         total_subj_with_data = []
         subj = subjects[0:]
         scheduled = subjects[3].count('1')
         scheduled_patient_tp1 = scheduled_patient_tp1 + scheduled
-        completed = subjects[5].count('1')
-        completed_patient_tp1 = completed_patient_tp1 + completed
+        completed_tp1 = subjects[5].count('1')
+        completed_patient_tp1 = completed_patient_tp1 + completed_tp1
+        #scheduled = subjects[3].count('1')
+        #scheduled_patient_tp2 = scheduled_patient_tp2 + scheduled
+        completed_tp2 = subjects[6].count('1')
+        completed_patient_tp2 = completed_patient_tp2 + completed_tp2
         total_subj_with_data = subjects[11].count('1')
         total_subj_with_data_collected = total_subj_with_data_collected + total_subj_with_data
         pt_dates = subj[9]
@@ -207,10 +223,8 @@ pt_upcoming_dates = sorted(pt_upcoming_dates)
 
 upcoming_pt_dates = []
 for date in pt_upcoming_dates:
+    date = [date]
     upcoming_pt_dates.append(date)
-
-upcoming_dates = '(' + upcoming_pt_dates[0] + ', ' + \
-    upcoming_pt_dates[1] + ', ' + upcoming_pt_dates[2] + ')'
 
 
 # output -----
@@ -220,7 +234,7 @@ print ""
 print '~~Patient Numbers:'
 print ''
 print "Total referrals: %s" % patient_referrals
-print "Total number of eligible patients (upon referral): %s" % total_eligible_referrals
+print "Total number of eligible patients (upon referral/online screen): %s" % total_eligible_referrals
 print ''
 
 for ref in referrals_freqs:
@@ -232,12 +246,18 @@ print ''
 for pending in pending_eligibility:
     print pending
 print ''
-print "Total patients scheduled for Tp1: %s" % scheduled_patient_tp1
-print "Total number of signed consent forms: %s" % total_subj_with_data_collected
-print "Number of Tp1 completions: %s" % completed_patient_tp1
-print "Total upcoming Tp1 appointments (as of today): %s" % pt_weekly_count
+print "Total Number of patients recieving CPT: %s" % pt_cpt_therapy
+print "Total Number of patients recieving PE therapy: %s" % pt_pe_therapy
+print "Number of subjects that are still deciding between CPT and PE: %s" % pt_therapy_still_unknown
 print ''
-print upcoming_dates
+print "Total patients scheduled for Tp1: %s" % scheduled_patient_tp1
+print "Total Number of patients we have data for (who has signed consent): %s" % total_subj_with_data_collected
+print "Total Number of Tp1 completions: %s" % completed_patient_tp1
+print "Total upcoming Tp1 appointments (as of today's date): %s" % pt_weekly_count
+print "Total Number of Tp2 completions: %s" % completed_patient_tp2
+print ''
+for pt_date in upcoming_pt_dates:
+    print pt_date
 print ''
 print ''
 

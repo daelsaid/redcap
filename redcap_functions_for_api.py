@@ -1,15 +1,17 @@
-import pycurl, cStringIO
+import pycurl
+import cStringIO
 import pandas
 import itertools
 from redcap import Project, RedcapError
 
 
-apiurl='https://redcap.stanford.edu/api/'
-token= ''
+apiurl = 'https://redcap.stanford.edu/api/'
+token = ''
 best_project = Project(apiurl, token)
 long_proj = Project(apiurl, token)
 ssl_proj = Project(apiurl, token, verify_ssl=True)
 survey_proj = Project(apiurl, '')
+
 
 def metadata_to_df(best_project):
     """Test metadata export --> DataFrame"""
@@ -24,13 +26,11 @@ def export_always_include_def_field(best_project):
     records = best_project.export_records(forms=['imaging'])
 
 
-
-
-
 def is_longitudinal(best_project):
     "Test the is_longitudinal method"
     best_project.assertFalse(best_project.reg_proj.is_longitudinal())
     best_project.assertTrue(best_project.long_proj.is_longitudinal())
+
 
 def regular_attrs(best_project):
     """proj.events/arm_names/arm_nums should be empty tuples"""
@@ -38,6 +38,7 @@ def regular_attrs(best_project):
         attr_obj = getattr(best_project.reg_proj, attr)
         best_project.assertIsNotNone(attr_obj)
         best_project.assertEqual(len(attr_obj), 0)
+
 
 def json_export(best_project):
     """ Make sure we get a list of dicts"""
@@ -53,10 +54,12 @@ def long_export(best_project):
     for record in data:
         best_project.assertIsInstance(record, dict)
 
+
 def import_records(best_project):
     "Test record import"
     data = best_project.export_records()
     response = best_project.import_records(data)
+
 
 def import_exception(best_project):
     "Test record import throws RedcapError for bad import"
@@ -66,6 +69,7 @@ def import_exception(best_project):
 def is_good_csv(best_project, csv_string):
     "Helper to test csv strings"
     return isinstance(csv_string, basestring)
+
 
 def csv_export(best_project):
     """Test valid csv export """

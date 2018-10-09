@@ -50,7 +50,7 @@ buf.close()
 
 current_date= str(time.strftime('%Y/%m/%d'))
 clinic_dict = {'1': 'Palo Alto' , '2': 'San Jose VA', '3': 'Monterey VA', '4': 'New Mexico VA', '5': 'Menlo Park',
-               '6': 'Fresno', '7': 'Livermore', '8': 'Stockton', '98': 'Other'}
+               '6': 'Fresno', '7': 'Livermore', '8': 'Stockton', '9': 'Modesto','10': 'Mather','98': 'Other'}
 
 data_rep_pt = str(object=patient_report) #patient specific report
 data_rep_pt = data_rep_pt.replace(' ', '_').replace(', ', ' ').replace('record_id_redcap', 'id')
@@ -280,22 +280,20 @@ print "Number of patients ready for Session 5 Follow-Up Calls: %s" %flwup
 print "Number of patients that have completed therapy: %s" %completed_all_therapy
 print "Number of patients that dropped out of therapy: %s" %dropped
 print ''
-print "Total patients scheduled for Tp2: %s" %sched_tp2
-print "Total Number of Tp2 completions: %s" %completed_patient_tp2
 print "Number of patients ready to be scheduled for Tp2: %s" %ready_tp2
 print "Number of patients in process of being scheduled for Tp2: %s" %in_process_tp2
+print "Total patients scheduled for Tp2: %s" %sched_tp2
+print "Total Number of Tp2 completions: %s" %completed_patient_tp2
 print ''
-
 print '~~Healthy Veteran Numbers:'
 print ''
 print 'Vets pending online screen completion: %s' %hv_pending_screen
-print ''
-print ''
+print 'Number of healthy veterans scheduled for tp1 %s' %hc_tp1_sched
 
 print '~~HC Numbers:'
-print ''
+print
 print "Total Tp1 completions: %s" %total_hc_tp1_complete
-print "Total Tp2 completions: %s" %total_hc_tp2_complete
+print "Total Tp2 iompletions: %s" %total_hc_tp2_complete
 print "Total number scheduled for tp1: %s" %total_hc_tp1_scheduled
 print "Total number scheduled for tp2: %s" %total_hc_tp2_scheduled
 print "Total upcoming Tp1 appointments (as of today's date): %s" %weekly_count

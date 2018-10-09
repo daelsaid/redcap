@@ -1,21 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-Created on Fri May  4 01:14:28 2018
-
-@author: dawlat_local
-"""
-
-token = ''
-url = 'https://redcap.stanford.edu/api/'
-
-#
-# curl -X POST -H "Cache-Control: no-cache" -F "token=BE22B1E1DCECC4631C50A7EFC7911EE2" -F "record=" -F "format=json" -F "delta=96:00:00" "https://redcap.stanford.edu/plugins/open/last_modified.php"
-#
-
-#!/usr/bin/env python2
-# -*- coding: utf-8 -*-
-"""
 Created on Tue Mar 27 18:04:40 2018
 
 @author: dawlat_local
@@ -29,12 +14,15 @@ import pandas
 import time
 from prettytable import PrettyTable
 
+
+# curl -X POST -H "Cache-Control: no-cache" -F "token=" -F "record=" -F "format=json" -F "delta=96:00:00" "https://redcap.stanford.edu/plugins/open/last_modified.php"
+
 current_date = str(time.strftime('%Y/%m/%d'))
 current_date.replace('/', '-')
 
 buf = cStringIO.StringIO()
 data = {
-    'token': 'BE22B1E1DCECC4631C50A7EFC7911EE2',
+    'token': '',
     'content': 'report',
     'format': 'csv',
     'report_id': '34176',
@@ -154,7 +142,6 @@ saline_hv_tp1 = numbers.groupby('redcap_event_name')[
     'did_the_participant_comple'].value_counts()[6]
 dry_hv_tp1 = numbers.groupby('enrolled_for')[
     'dry_eeg_completion'].value_counts()[8]
-
 
 proc = PrettyTable()
 

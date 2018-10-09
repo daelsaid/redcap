@@ -16,7 +16,7 @@ current_date = str(time.strftime('%Y/%m/%d'))
 clinic_dict = {'1': 'Palo Alto', '2': 'San Jose VA', '3': 'Monterey VA', '4': 'New Mexico VA', '5': 'Menlo Park',
                '6': 'Fresno', '7': 'Livermore', '8': 'Stockton', '9': 'Modesto', '10': 'Mather', '98': 'Other'}
 
-token = 'BE22B1E1DCECC4631C50A7EFC7911EE2'
+token = ''
 url = 'https://redcap.stanford.edu/api/'
 
 patient_buf = cStringIO.StringIO()

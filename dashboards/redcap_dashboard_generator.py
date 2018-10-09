@@ -78,7 +78,7 @@ for test in data_test:
 
 
 current_date= str(time.strftime('%Y/%m/%d'))
-clinic_dict = {'1': 'Palo Alto' , '2': 'San Jose VA', '3': 'Monterrey VA', '4': 'New Mexico VA', '5': 'Menlo Park',
+clinic_dict = {'1': 'Palo Alto' , '2': 'San Jose VA', '3': 'Monterey VA', '4': 'New Mexico VA', '5': 'Menlo Park',
                '6': 'Fresno', '7': 'Livermore', '8': 'Stockton', '98': 'Other'}
 
 patient_referrals=0
@@ -153,13 +153,12 @@ for pt in patient_corrected_list:
 referrals_freqs= [(k,len(list(g))) for k, g in groupby(sorted(freq_of_referrals))]
 pending_eligibility=[(k,len(list(g))) for k, g in groupby(sorted(pending_eligibility_locations))]
 
-print pending_eligibility_locations
 for subjects in corrected_list:
     subjects[9] = subjects[9].replace('-', '/')
     subjects[10] = subjects[10].replace('-', '/')
     if 'tp1_day1_arm_1' in subjects[1]:
         scheduled=[]
-	   tp2_scheduled=[]
+	tp2_scheduled=[]
         referred=[]
         completed_tp1=[]
         completed_tp2=[]

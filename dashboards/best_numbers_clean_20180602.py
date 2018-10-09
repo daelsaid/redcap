@@ -1,28 +1,10 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-Created on Fri May  4 01:14:28 2018
-
-@author: dawlat_local
-"""
-
-
-token = 'BE22B1E1DCECC4631C50A7EFC7911EE2'
-url = 'https://redcap.stanford.edu/api/'
-
-#
-# curl -X POST -H "Cache-Control: no-cache" -F "token=BE22B1E1DCECC4631C50A7EFC7911EE2" -F "record=" -F "format=json" -F "delta=96:00:00" "https://redcap.stanford.edu/plugins/open/last_modified.php"
-#
-
-#!/usr/bin/env python2
-# -*- coding: utf-8 -*-
-"""
 Created on Tue Mar 27 18:04:40 2018
 
 @author: dawlat_local
 """
-
-#!/usr/bin/env python
 
 import pycurl
 import cStringIO
@@ -30,12 +12,16 @@ import pandas
 import time
 from prettytable import PrettyTable
 
+#
+# curl -X POST -H "Cache-Control: no-cache" -F "token=" -F "record=" -F "format=json" -F "delta=96:00:00" "https://redcap.stanford.edu/plugins/open/last_modified.php"
+#
+
 current_date = str(time.strftime('%Y/%m/%d'))
 current_date.replace('/', '-')
 
 buf = cStringIO.StringIO()
 data = {
-    'token': 'BE22B1E1DCECC4631C50A7EFC7911EE2',
+    'token': '',
     'content': 'report',
     'format': 'csv',
     'report_id': '34176',
@@ -44,6 +30,7 @@ data = {
     'exportCheckboxLabel': 'false',
     'returnFormat': 'csv'
 }
+
 ch = pycurl.Curl()
 ch.setopt(ch.URL, 'https://redcap.stanford.edu/api/')
 ch.setopt(ch.HTTPPOST, data.items())
@@ -156,7 +143,6 @@ saline_hv_tp1 = numbers.groupby('redcap_event_name')[
 dry_hv_tp1 = numbers.groupby('enrolled_for')[
     'dry_eeg_completion'].value_counts()[8]
 
-
 proc = PrettyTable()
 
 proc.field_names = ['-', 'Intake', 'Dry EEG',
@@ -167,7 +153,6 @@ proc.add_row(["Psychotherapy Tp2", intake_pt_tp2, dry_pt_tp2, saline_pt_tp2,
               vm_react_pt_tp2, webneuro_pt_tp2, mri_pt_tp2, tms_pt_tp2])
 proc.add_row(["Healthy Veterans", intake_hv, dry_hv_tp1,
               saline_hv_tp1, vm_react_hv, webneuro_hv, mri_hv, tms_hv])
-
 
 table = PrettyTable()
 
@@ -201,4 +186,3 @@ table.add_row(["EEG/fMRI Healthy Controls",
 print(table)
 print('')
 print (proc)
-#

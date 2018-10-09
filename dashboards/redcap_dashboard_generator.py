@@ -6,6 +6,7 @@ Created on Sun Jan 28 20:41:35 2018
 @author: dawlat_local
 """
 
+
 import pycurl
 import cStringIO
 import datetime as dt
@@ -14,23 +15,13 @@ import sys
 import pandas
 from itertools import groupby
 
-report_test = '31113'
 
+report_test = '31113'
 current_date = str(time.strftime('%Y/%m/%d'))
 
-clinic_dict = {
-    '1': 'Palo Alto',
-    '2': 'San Jose VA',
-    '3': 'Monterey VA',
-    '4': 'New Mexico VA',
-    '5': 'Menlo Park',
-    '6': 'Fresno',
-    '7': 'Livermore',
-    '8': 'Stockton',
-    '9': 'Modesto',
-    '10': 'Mather',
-    '98': 'Other'
-}
+
+clinic_dict = {'1': 'Palo Alto', '2': 'San Jose VA', '3': 'Monterey VA', '4': 'New Mexico VA', '5': 'Menlo Park',
+               '6': 'Fresno', '7': 'Livermore', '8': 'Stockton', '9': 'Modesto', '10': 'Mather', '98': 'Other'}
 
 token = ''
 url = 'https://redcap.stanford.edu/api/'

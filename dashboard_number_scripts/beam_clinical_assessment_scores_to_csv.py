@@ -13,12 +13,11 @@ from itertools import groupby
 import pandas
 
 # SET PATH VARIABLE FOR CSV OUTPUT HERE #example: '/Volumes/Smurf-Village/home/daelsaid/redcap_report.csv'
-redcap_report_output = '/Users/lillyel-said/Desktop/test.csv'
+redcap_report_output = ''
 
 # pulling data from clinical assessment scores - a redcap survey based on all the different clinical survey arms in the project
 buf = cStringIO.StringIO()
-data = {
-    'token': 'E1F83E6A50C2F520800A49294B84C1B2',
+data = {E1F83E6A50C2F520800A49294B84C1B2',
     'content': 'report',
     'format': 'csv',
     'report_id': '22120',

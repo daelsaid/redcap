@@ -7,7 +7,7 @@ Created on Sun Apr 22 00:44:47 2018
 """
 import pandas
 
-csv_stuff=pandas.read_csv('/Users/lillyel-said/Desktop/patients.csv')
+csv_stuff=pandas.read_csv('')
 
 print csv_stuff.count()
 csv=pandas.DataFrame(data=csv_stuff.set_index('clinic_referral'))
